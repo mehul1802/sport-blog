@@ -46,7 +46,7 @@ const Footer = () => {
               )}
               {hasRecentCategories && (
                 <li>
-                  <Link href="/categories/">
+                  <Link href="/category/">
                     <a className={styles.footerMenuTitle}>
                       <strong>Categories</strong>
                     </a>
