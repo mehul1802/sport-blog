@@ -7,7 +7,7 @@ import { QUERY_ALL_CATEGORIES, QUERY_CATEGORY_BY_SLUG, QUERY_CATEGORY_SEO_BY_SLU
  */
 
 export function categoryPathBySlug(slug) {
-  return `/categories/${slug}`;
+  return `/category/${slug}`;
 }
 
 /**

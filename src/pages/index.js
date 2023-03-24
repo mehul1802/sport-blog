@@ -18,33 +18,18 @@ export default function Home({ posts, pagination }) {
   return (
     <Layout>
       <WebsiteJsonLd siteTitle={title} />
-      <Header>
-        <h1
-          dangerouslySetInnerHTML={{
-            __html: title,
-          }}
-        />
-
-        <p
-          className={styles.description}
-          dangerouslySetInnerHTML={{
-            __html: description,
-          }}
-        />
-      </Header>
 
       <Section>
         <Container>
-          <h2 className="sr-only">Posts</h2>
-          <ul className={styles.posts}>
+          <div className={styles.posts}>
             {posts.map((post) => {
               return (
-                <li key={post.slug}>
+                <div key={post.slug}>
                   <PostCard post={post} />
-                </li>
+                </div>
               );
             })}
-          </ul>
+          </div>
           {pagination && (
             <Pagination
               addCanonical={false}
