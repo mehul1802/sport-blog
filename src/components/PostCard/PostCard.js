@@ -33,12 +33,12 @@ const PostCard = ({ post, options = {} }) => {
   return (
     <div className={postCardStyle}>
       {featuredImage && (
-          <FeaturedImage
-            {...featuredImage}
-            src={featuredImage.sourceUrl}
-            dangerouslySetInnerHTML={featuredImage.caption}
-          />
-        )}
+        <FeaturedImage
+          {...featuredImage}
+          src={featuredImage.sourceUrl}
+          dangerouslySetInnerHTML={featuredImage.caption}
+        />
+      )}
       <div className="post-content">
         <Link href={postPathBySlug(slug)}>
           <a>
