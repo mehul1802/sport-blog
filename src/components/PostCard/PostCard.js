@@ -4,6 +4,7 @@ import { postPathBySlug, sanitizeExcerpt } from 'lib/posts';
 
 import Metadata from 'components/Metadata';
 import styles from './PostCard.module.scss';
+import FeaturedImage from 'components/FeaturedImage';
 
 const PostCard = ({ post, options = {} }) => {
   const { title, excerpt, slug, date, author, categories, isSticky = false, featuredImage } = post;
@@ -31,13 +32,13 @@ const PostCard = ({ post, options = {} }) => {
 
   return (
     <div className={postCardStyle}>
-      <img
-        srcSet={featuredImage.srcSet}
-        sizes="(max-width: 600px) 300px,(max-width: 992px) 768px
-              1200px"
-        src={featuredImage.sourceUrl}
-        alt="Elva dressed as a fairy"
-      />
+      {featuredImage && (
+          <FeaturedImage
+            {...featuredImage}
+            src={featuredImage.sourceUrl}
+            dangerouslySetInnerHTML={featuredImage.caption}
+          />
+        )}
       <div className="post-content">
         <Link href={postPathBySlug(slug)}>
           <a>
