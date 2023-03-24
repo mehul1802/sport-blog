@@ -59,7 +59,6 @@ const PostCard = ({ post, options = {} }) => {
           />
         )}
       </div>
-      
     </div>
   );
 };
