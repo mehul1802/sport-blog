@@ -1,7 +1,5 @@
 import Link from 'next/link';
 import { Helmet } from 'react-helmet';
-import Script from "next/script";
-import { useEffect } from 'react';
 
 import { getPostBySlug, getRecentPosts, getRelatedPosts, postPathBySlug, sanitizeExcerpt } from 'lib/posts';
 import { categoryPathBySlug } from 'lib/categories';
@@ -18,7 +16,7 @@ import Container from 'components/Container';
 import Content from 'components/Content';
 import Metadata from 'components/Metadata';
 import FeaturedImage from 'components/FeaturedImage';
-import GoogleAdsenseContainer from 'components/GoogleAdsenseContainer/GoogleAdsenseContainer';
+// import GoogleAdsenseContainer from 'components/GoogleAdsenseContainer/GoogleAdsenseContainer';
 import {
   FacebookShareButton,
   FacebookIcon,
@@ -27,8 +25,8 @@ import {
   TwitterShareButton,
   TwitterIcon,
   WhatsappShareButton,
-  WhatsappIcon
-} from 'next-share'
+  WhatsappIcon,
+} from 'next-share';
 
 import styles from 'styles/pages/Post.module.scss';
 
@@ -44,7 +42,7 @@ export default function Post({ post, socialImage, related }) {
     modified,
     featuredImage,
     isSticky = false,
-    slug
+    // slug,
   } = post;
 
   const { metadata: siteMetadata = {}, homepage } = useSite();
@@ -110,7 +108,6 @@ export default function Post({ post, socialImage, related }) {
           options={metadataOptions}
           isSticky={isSticky}
         />
-
       </Header>
 
       <Content>
@@ -127,30 +124,16 @@ export default function Post({ post, socialImage, related }) {
             <div>
               <span>Social Share</span>
               <div className={styles.socialShareWrapper}>
-                <FacebookShareButton
-                  url={locationUrl}
-                  quote={title}
-                  hashtag={'#nextshare'}
-                >
+                <FacebookShareButton url={locationUrl} quote={title} hashtag={'#nextshare'}>
                   <FacebookIcon size={32} round />
                 </FacebookShareButton>
-                <TelegramShareButton
-                  url={locationUrl}
-                  title={title}
-                >
+                <TelegramShareButton url={locationUrl} title={title}>
                   <TelegramIcon size={32} round />
                 </TelegramShareButton>
-                <TwitterShareButton
-                  url={locationUrl}
-                  title={title}
-                >
+                <TwitterShareButton url={locationUrl} title={title}>
                   <TwitterIcon size={32} round />
                 </TwitterShareButton>
-                <WhatsappShareButton
-                  url={locationUrl}
-                  title={title}
-                  separator=":: "
-                >
+                <WhatsappShareButton url={locationUrl} title={title} separator=":: ">
                   <WhatsappIcon size={32} round />
                 </WhatsappShareButton>
               </div>
@@ -187,7 +170,7 @@ export default function Post({ post, socialImage, related }) {
                       <Link href={postPathBySlug(post.slug)}>
                         <a>{post.title}</a>
                       </Link>
-                      
+
                       {post.excerpt && (
                         <div
                           className={styles.postCardContent}
@@ -196,7 +179,6 @@ export default function Post({ post, socialImage, related }) {
                           }}
                         />
                       )}
-                    
                     </div>
                   </li>
                 ))}

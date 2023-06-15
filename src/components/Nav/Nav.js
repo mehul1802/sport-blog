@@ -1,18 +1,18 @@
 import { useEffect, useRef, useState, useCallback } from 'react';
 import Link from 'next/link';
-import { FaSearch } from 'react-icons/fa';
+// import { FaSearch } from 'react-icons/fa';
 
 import useSite from 'hooks/use-site';
-import useSearch, { SEARCH_STATE_LOADED } from 'hooks/use-search';
-import { postPathBySlug } from 'lib/posts';
-import { findMenuByLocation, MENU_LOCATION_NAVIGATION_DEFAULT } from 'lib/menus';
+import useSearch from 'hooks/use-search';
+// import { postPathBySlug } from 'lib/posts';
+// import { MENU_LOCATION_NAVIGATION_DEFAULT } from 'lib/menus';
 
 import Section from 'components/Section';
 
 import styles from './Nav.module.scss';
-import NavListItem from 'components/NavListItem';
+// import NavListItem from 'components/NavListItem';
 
-const SEARCH_VISIBLE = 'visible';
+// const SEARCH_VISIBLE = 'visible';
 const SEARCH_HIDDEN = 'hidden';
 
 const Nav = () => {
@@ -20,17 +20,17 @@ const Nav = () => {
 
   const [searchVisibility, setSearchVisibility] = useState(SEARCH_HIDDEN);
 
-  const { metadata = {}, menus } = useSite();
+  const { metadata = {} } = useSite();
   const { title } = metadata;
 
-  const navigationLocation = process.env.WORDPRESS_MENU_LOCATION_NAVIGATION || MENU_LOCATION_NAVIGATION_DEFAULT;
-  const navigation = findMenuByLocation(menus, navigationLocation);
+  // const navigationLocation = process.env.WORDPRESS_MENU_LOCATION_NAVIGATION || MENU_LOCATION_NAVIGATION_DEFAULT;
+  // const navigation = findMenuByLocation(menus, navigationLocation);
 
-  const { query, results, search, clearSearch, state } = useSearch({
+  const { clearSearch } = useSearch({
     maxResults: 5,
   });
 
-  const searchIsLoaded = state === SEARCH_STATE_LOADED;
+  // const searchIsLoaded = state === SEARCH_STATE_LOADED;
 
   // When the search visibility changes, we want to add an event listener that allows us to
   // detect when someone clicks outside of the search box, allowing us to close the results
@@ -93,19 +93,19 @@ const Nav = () => {
    * handleOnSearch
    */
 
-  function handleOnSearch({ currentTarget }) {
-    search({
-      query: currentTarget.value,
-    });
-  }
+  // function handleOnSearch({ currentTarget }) {
+  //   search({
+  //     query: currentTarget.value,
+  //   });
+  // }
 
   /**
    * handleOnToggleSearch
    */
 
-  function handleOnToggleSearch() {
-    setSearchVisibility(SEARCH_VISIBLE);
-  }
+  // function handleOnToggleSearch() {
+  //   setSearchVisibility(SEARCH_VISIBLE);
+  // }
 
   /**
    * addResultsRoving
