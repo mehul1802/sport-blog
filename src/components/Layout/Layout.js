@@ -1,4 +1,5 @@
 import { useRouter } from 'next/router';
+import { useEffect } from 'react';
 import { Helmet } from 'react-helmet';
 import styles from './Layout.module.scss';
 
@@ -20,6 +21,16 @@ const Layout = ({ children }) => {
   }
 
   metadata.og.url = `${homepage}${asPath}`;
+
+  useEffect(() => {
+    const head = document.getElementsByTagName('head')[0]
+    const scriptElement = document.createElement(`script`)
+    scriptElement.type = `text/javascript`
+    scriptElement.async
+    scriptElement.src = `https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3226835656747352`
+    scriptElement.crossOrigin = "anonymous"
+    head.appendChild(scriptElement);
+  }, []);
 
   const helmetSettings = {
     defaultTitle: metadata.title,
@@ -68,7 +79,7 @@ const Layout = ({ children }) => {
 
       <Main>{children}</Main>
 
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 };

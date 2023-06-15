@@ -182,7 +182,7 @@ const Nav = () => {
             <a>{title}</a>
           </Link>
         </p>
-        <ul className={styles.navMenu}>
+        {/* <ul className={styles.navMenu}>
           {navigation?.map((listItem) => {
             return <NavListItem key={listItem.id} className={styles.navSubMenu} item={listItem} />;
           })}
@@ -227,7 +227,7 @@ const Nav = () => {
               </div>
             </form>
           )}
-        </div>
+        </div> */}
       </Section>
     </nav>
   );

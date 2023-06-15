@@ -7,22 +7,51 @@
 
 .postFooter {
   text-align: center;
+  margin: 0;
+  padding: 0;
 }
 
 .postModified {
   color: $color-gray-500;
   font-style: italic;
-  margin-bottom: 3rem;
+  margin-bottom: 1.5rem;
 }
 
 .relatedPosts {
   display: flex;
   flex-direction: column;
-  span {
-    font-size: 1.2em;
-    margin-bottom: 0.4em;
+  h6 {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    margin-top: 0;
+  }
+  figure, img {
+    margin-bottom: 0;
+    border-top-left-radius: .25rem;
+    border-top-right-radius: .25rem;
   }
   ul {
     list-style: none;
+    display: grid;
+    grid-gap: 1rem;
+    padding: 0;
+    grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
+    li {
+      box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+      border-radius: .25rem;
+    }
   }
+}
+.relatedContent {
+  padding: 1rem;
+  p {
+    margin-bottom: 0;
+  }
+}
+
+
+.socialShareWrapper {
+  display: flex;
+  grid-gap: .75rem;
+  margin-top: .5rem;
 }
