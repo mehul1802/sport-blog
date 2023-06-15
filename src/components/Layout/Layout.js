@@ -8,7 +8,7 @@ import { helmetSettingsFromMetadata } from 'lib/site';
 
 import Nav from 'components/Nav';
 import Main from 'components/Main';
-import Footer from 'components/Footer';
+// import Footer from 'components/Footer';
 
 const Layout = ({ children }) => {
   const router = useRouter();
@@ -23,12 +23,12 @@ const Layout = ({ children }) => {
   metadata.og.url = `${homepage}${asPath}`;
 
   useEffect(() => {
-    const head = document.getElementsByTagName('head')[0]
-    const scriptElement = document.createElement(`script`)
-    scriptElement.type = `text/javascript`
-    scriptElement.async
-    scriptElement.src = `https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3226835656747352`
-    scriptElement.crossOrigin = "anonymous"
+    const head = document.getElementsByTagName('head')[0];
+    const scriptElement = document.createElement(`script`);
+    scriptElement.type = `text/javascript`;
+    scriptElement.async;
+    scriptElement.src = `https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3226835656747352`;
+    scriptElement.crossOrigin = 'anonymous';
     head.appendChild(scriptElement);
   }, []);
 
