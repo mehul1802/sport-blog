@@ -306,12 +306,15 @@ export function mapPostData(post = {}) {
  * getRelatedPosts
  */
 
-export async function getRelatedPosts(categories, postId, count = 5) {
+export async function getRelatedPosts(categories, postId, count = 3) {
+ 
+  
   if (!Array.isArray(categories) || categories.length === 0) return;
 
   let related = {
     category: categories && categories.shift(),
   };
+
 
   if (related.category) {
     const { posts } = await getPostsByCategoryId({
@@ -319,11 +322,14 @@ export async function getRelatedPosts(categories, postId, count = 5) {
       queryIncludes: 'archive',
     });
 
+
     const filtered = posts.filter(({ postId: id }) => id !== postId);
     const sorted = sortObjectsByDate(filtered);
 
-    related.posts = sorted.map((post) => ({ title: post.title, slug: post.slug }));
+    related.posts = sorted.map((post) => ({ title: post.title, slug: post.slug, featuredImage: post.featuredImage, excerpt: post.excerpt }));
   }
+
+  
 
   if (!Array.isArray(related.posts) || related.posts.length === 0) {
     const relatedPosts = await getRelatedPosts(categories, postId, count);
@@ -331,9 +337,9 @@ export async function getRelatedPosts(categories, postId, count = 5) {
   }
 
   if (Array.isArray(related.posts) && related.posts.length > count) {
-    return related.posts.slice(0, count);
-  }
-
+    return {...related, posts: related.posts.slice(0, count)};
+  } 
+ 
   return related;
 }
 

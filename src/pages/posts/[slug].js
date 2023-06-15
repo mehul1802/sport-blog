@@ -1,7 +1,9 @@
 import Link from 'next/link';
 import { Helmet } from 'react-helmet';
+import Script from "next/script";
+import { useEffect } from 'react';
 
-import { getPostBySlug, getRecentPosts, getRelatedPosts, postPathBySlug } from 'lib/posts';
+import { getPostBySlug, getRecentPosts, getRelatedPosts, postPathBySlug, sanitizeExcerpt } from 'lib/posts';
 import { categoryPathBySlug } from 'lib/categories';
 import { formatDate } from 'lib/datetime';
 import { ArticleJsonLd } from 'lib/json-ld';
@@ -16,6 +18,17 @@ import Container from 'components/Container';
 import Content from 'components/Content';
 import Metadata from 'components/Metadata';
 import FeaturedImage from 'components/FeaturedImage';
+import GoogleAdsenseContainer from 'components/GoogleAdsenseContainer/GoogleAdsenseContainer';
+import {
+  FacebookShareButton,
+  FacebookIcon,
+  TelegramShareButton,
+  TelegramIcon,
+  TwitterShareButton,
+  TwitterIcon,
+  WhatsappShareButton,
+  WhatsappIcon
+} from 'next-share'
 
 import styles from 'styles/pages/Post.module.scss';
 
@@ -31,6 +44,7 @@ export default function Post({ post, socialImage, related }) {
     modified,
     featuredImage,
     isSticky = false,
+    slug
   } = post;
 
   const { metadata: siteMetadata = {}, homepage } = useSite();
@@ -66,6 +80,8 @@ export default function Post({ post, socialImage, related }) {
 
   const helmetSettings = helmetSettingsFromMetadata(metadata);
 
+  const locationUrl = typeof window !== 'undefined' ? window.location.origin + window.location.pathname : '';
+
   return (
     <Layout>
       <Helmet {...helmetSettings} />
@@ -94,42 +110,94 @@ export default function Post({ post, socialImage, related }) {
           options={metadataOptions}
           isSticky={isSticky}
         />
+
       </Header>
 
       <Content>
         <Section>
           <Container>
+            {/* <GoogleAdsenseContainer /> */}
             <div
               className={styles.content}
               dangerouslySetInnerHTML={{
                 __html: content,
               }}
             />
+            <p className={styles.postModified}>Last updated on {formatDate(modified)}.</p>
+            <div>
+              <span>Social Share</span>
+              <div className={styles.socialShareWrapper}>
+                <FacebookShareButton
+                  url={locationUrl}
+                  quote={title}
+                  hashtag={'#nextshare'}
+                >
+                  <FacebookIcon size={32} round />
+                </FacebookShareButton>
+                <TelegramShareButton
+                  url={locationUrl}
+                  title={title}
+                >
+                  <TelegramIcon size={32} round />
+                </TelegramShareButton>
+                <TwitterShareButton
+                  url={locationUrl}
+                  title={title}
+                >
+                  <TwitterIcon size={32} round />
+                </TwitterShareButton>
+                <WhatsappShareButton
+                  url={locationUrl}
+                  title={title}
+                  separator=":: "
+                >
+                  <WhatsappIcon size={32} round />
+                </WhatsappShareButton>
+              </div>
+            </div>
           </Container>
         </Section>
       </Content>
 
       <Section className={styles.postFooter}>
         <Container>
-          <p className={styles.postModified}>Last updated on {formatDate(modified)}.</p>
           {Array.isArray(relatedPostsList) && relatedPostsList.length > 0 && (
             <div className={styles.relatedPosts}>
               {relatedPostsTitle.name ? (
-                <span>
+                <h6>
                   More from{' '}
                   <Link href={relatedPostsTitle.link}>
                     <a>{relatedPostsTitle.name}</a>
                   </Link>
-                </span>
+                </h6>
               ) : (
                 <span>More Posts</span>
               )}
               <ul>
                 {relatedPostsList.map((post) => (
                   <li key={post.title}>
-                    <Link href={postPathBySlug(post.slug)}>
-                      <a>{post.title}</a>
-                    </Link>
+                    {post.featuredImage && (
+                      <FeaturedImage
+                        {...post.featuredImage}
+                        src={post.featuredImage.sourceUrl}
+                        dangerouslySetInnerHTML={post.featuredImage.caption}
+                      />
+                    )}
+                    <div className={styles.relatedContent}>
+                      <Link href={postPathBySlug(post.slug)}>
+                        <a>{post.title}</a>
+                      </Link>
+                      
+                      {post.excerpt && (
+                        <div
+                          className={styles.postCardContent}
+                          dangerouslySetInnerHTML={{
+                            __html: sanitizeExcerpt(post.excerpt),
+                          }}
+                        />
+                      )}
+                    
+                    </div>
                   </li>
                 ))}
               </ul>
